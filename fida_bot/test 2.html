@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>交易所公告爬蟲</title> 
+    </head>
+    <body>
+        <script type="text/javascript"> 
+            const request = new XMLHttpRequest();
+            
+                    request.open('GET', 'https://help.ftx.com/api/v2/help_center/zh-cn/articles.json?sort_by=created_at', true)
+                    request.onload = function () {
+                        if (request.status >= 200 && request.status < 400) {
+                        // 這邊表示是有成功讀取網頁
+                            var data = JSON.parse(request.responseText)['articles']
+                            document.write("<table border:1px solid #000; font-family: '標楷體'; font-size:16px; width:200px;text-align:center; border-collapse:collapse>");
+                            document.write("<tbody>");
+                            for (i = 0; i < data.length; i++) {
+                                
+                                document.write("<tr>");
+                                document.write("<td>");
+                                document.write("<a href=\"" + data[i].html_url + "\">" + data[i].name + "</a>"
+                                )
+                                document.write("</td>");
+                                document.write("</tr>");
+                            }
+                            document.write("</tbody>");
+                            document.write("</table>");
+                        } else {
+                        console.log('err');// 如果不是就印出錯誤
+                        }
+                    }
+
+                    request.send()
+        </script>
+        <style type="text/css"> 
+            table{ 
+            border:#00ffff solid 2px; 
+            border-collapse:collapse; 
+            } 
+            td{ 
+            border:#8080ff solid 2px; 
+            padding:10px; 
+            } 
+            </style>
+    
+    </body>
+</html>
